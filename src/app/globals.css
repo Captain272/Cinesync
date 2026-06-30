@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html, body {
+  background: #070707;
+  color: #e7e7ea;
+}
+
+body {
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, rgba(212,169,58,0.07), transparent 60%),
+    radial-gradient(800px 400px at 100% 100%, rgba(212,169,58,0.04), transparent 60%);
+  background-attachment: fixed;
+}
+
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(20,20,22,0.9), rgba(12,12,14,0.9));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.divider { border-color: rgba(255,255,255,0.06); }
+
+.gold-text {
+  background: linear-gradient(180deg, #f3e5b0 0%, #d4a93a 60%, #8a6614 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 8px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
