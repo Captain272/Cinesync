@@ -1,0 +1,532 @@
+{
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "bind": "lan",
+    "auth": {
+      "mode": "token",
+      "token": "kakaroto"
+    },
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "*"
+      ],
+      "dangerouslyAllowHostHeaderOriginFallback": true,
+      "dangerouslyDisableDeviceAuth": true
+    }
+  },
+  "agents": {
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "workspace": "/root/.openclaw/workspace",
+        "agentDir": "/root/.openclaw/agents/main/agent"
+      }
+    ],
+    "defaults": {
+      "model": {
+        "primary": "openrouter/moonshotai/kimi-k2.6",
+        "fallbacks": [
+          "novita/moonshotai/kimi-k2.6",
+          "fireworks/accounts/fireworks/models/kimi-k2p6",
+          "meta/quiet_sand",
+          "novita/minimax/minimax-m3",
+          "novita/minimax/minimax-m2.7",
+          "openrouter/minimax/minimax-m3",
+          "deepinfra/moonshotai/Kimi-K2.6",
+          "deepinfra/MiniMaxAI/MiniMax-M2.7"
+        ]
+      },
+      "models": {
+        "openrouter/moonshotai/kimi-k2.6": {},
+        "openrouter/minimax/minimax-m3": {},
+        "novita/moonshotai/kimi-k2.6": {},
+        "novita/minimax/minimax-m3": {},
+        "novita/minimax/minimax-m2.7": {},
+        "fireworks/accounts/fireworks/models/kimi-k2p6": {},
+        "meta/quiet_sand": {},
+        "deepinfra/moonshotai/Kimi-K2.6": {},
+        "deepinfra/MiniMaxAI/MiniMax-M2.7": {}
+      },
+      "memorySearch": {
+        "provider": "gemini",
+        "model": "gemini-embedding-2",
+        "fallback": "none",
+        "extraPaths": [
+          "/root/.openclaw/workspace/memory",
+          "/root/.openclaw/workspace/media",
+          "/root/.openclaw/workspace/document"
+        ],
+        "multimodal": {
+          "enabled": true,
+          "modalities": [
+            "all"
+          ]
+        },
+        "store": {
+          "vector": {
+            "enabled": true
+          }
+        }
+      },
+      "imageGenerationModel": {
+        "primary": "gemini/gemini-2.5-flash-image"
+      },
+      "sandbox": {
+        "mode": "off"
+      },
+      "thinkingDefault": "high",
+      "reasoningDefault": "on"
+    }
+  },
+  "models": {
+    "mode": "replace",
+    "providers": {
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "api": "openai-completions",
+        "apiKey": "sk-or-v1-91e1c9a0e8c05af6c58384,sk-or-v1-8fe108fbc74c9396910a05ce7b004dcd47c",
+        "models": [
+          {
+            "id": "moonshotai/kimi-k2.6",
+            "name": "Kimi K2.6 (OpenRouter)"
+          },
+          {
+            "id": "minimax/minimax-m3",
+            "name": "MiniMax M3 (OpenRouter)"
+          }
+        ]
+      },
+      "novita": {
+        "baseUrl": "https://api.novita.ai/openai",
+        "api": "openai-completions",
+        "apiKey": "sk_T-7DlGl3kWEmeMEn4PmkQ8Nrc",
+        "models": [
+          {
+            "id": "moonshotai/kimi-k2.6",
+            "name": "Kimi K2.6 (Novita)"
+          },
+          {
+            "id": "minimax/minimax-m3",
+            "name": "MiniMax M3 (Novita)"
+          },
+          {
+            "id": "minimax/minimax-m2.7",
+            "name": "MiniMax M2.7 (Novita)"
+          }
+        ]
+      },
+      "fireworks": {
+        "baseUrl": "https://api.fireworks.ai/inference/v1",
+        "api": "openai-completions",
+        "apiKey": "fw_FyHfTFsQ2Zmm,fw_FWqfPj8L5CXfcFe",
+        "models": [
+          {
+            "id": "accounts/fireworks/models/kimi-k2p6",
+            "name": "Kimi K2.6 (Fireworks)"
+          }
+        ]
+      },
+      "meta": {
+        "baseUrl": "https://api.llama.com/v1alpha",
+        "api": "openai-completions",
+        "apiKey": "LLM|1835284997165924|rS83JwN_geYOs",
+        "models": [
+          {
+            "id": "quiet_sand",
+            "name": "Meta Llama quiet_sand"
+          }
+        ]
+      },
+      "deepinfra": {
+        "baseUrl": "https://api.deepinfra.com/v1/openai",
+        "api": "openai-completions",
+        "apiKey": "qOKL0Zr8XnUGE",
+        "models": [
+          {
+            "id": "moonshotai/Kimi-K2.6",
+            "name": "Kimi K2.6 (DeepInfra)"
+          },
+          {
+            "id": "MiniMaxAI/MiniMax-M2.7",
+            "name": "MiniMax M2.7 (DeepInfra)"
+          }
+        ]
+      }
+    }
+  },
+  "messages": {
+    "tts": {
+      "auto": "off",
+      "mode": "final",
+      "provider": "openai",
+      "providers": {
+        "openai": {
+          "model": "gpt-4o-mini-tts",
+          "apiKey": "",
+          "speakerVoice": "coral"
+        }
+      }
+    }
+  },
+  "tools": {
+    "exec": {
+      "security": "full"
+    },
+    "loopDetection": {
+      "enabled": true,
+      "historySize": 15,
+      "warningThreshold": 5,
+      "criticalThreshold": 10,
+      "globalCircuitBreakerThreshold": 15,
+      "detectors": {
+        "genericRepeat": true,
+        "knownPollNoProgress": true,
+        "pingPong": true
+      }
+    },
+    "media": {
+      "audio": {
+        "models": [
+          {
+            "type": "cli",
+            "command": "whisper",
+            "args": [
+              "--model",
+              "base",
+              "{{MediaPath}}"
+            ],
+            "timeoutSeconds": 45,
+            "capabilities": [
+              "audio"
+            ]
+          },
+          {
+            "provider": "openai",
+            "model": "whisper-1",
+            "capabilities": [
+              "audio"
+            ]
+          }
+        ]
+      }
+    },
+    "web": {
+      "search": {
+        "provider": "brave",
+        "maxResults": 5,
+        "timeoutSeconds": 30
+      }
+    },
+    "elevated": {
+      "enabled": true,
+      "allowFrom": {
+        "webchat": [
+          "*"
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "hpg": {
+        "enabled": true,
+        "config": {
+          "classifier": {
+            "engine": "both",
+            "endpoint": "http://127.0.0.1:8799/classify",
+            "endpointTimeoutMs": 4000,
+            "failClosedLayer": 4
+          },
+          "toolGuard": {
+            "enabled": true,
+            "tier3MaxLayer": 1,
+            "tier2MaxLayer": 2
+          },
+          "precedence": {
+            "enabled": true
+          },
+          "plaintextPersist": {
+            "enabled": true,
+            "writeTools": [
+              "write",
+              "edit",
+              "apply_patch",
+              "file_write",
+              "memory_write",
+              "wiki_apply",
+              "cron",
+              "apple-reminders",
+              "todoist"
+            ],
+            "encryptedSinks": [
+              "local-vault",
+              "local_vault",
+              "enterprise-vault",
+              "enterprise_vault"
+            ],
+            "vaultPathGlobs": [
+              "**/vault.db",
+              "**/*.vault"
+            ],
+            "layers": [
+              3,
+              4
+            ]
+          },
+          "execHeuristic": {
+            "enabled": true,
+            "layers": [
+              3,
+              4
+            ],
+            "redirectionPatterns": [
+              ">",
+              ">>",
+              "tee"
+            ],
+            "ignorePatterns": [
+              "/dev/null"
+            ]
+          },
+          "redaction": {
+            "enabled": true,
+            "layers": [
+              3,
+              4
+            ],
+            "scrubLiveContext": false
+          },
+          "auditLogPath": "/root/.openclaw/logs/hpg-audit.jsonl"
+        }
+      },
+      "brave": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "BSAts4tktC-8hGqt4hy",
+            "mode": "web"
+          }
+        }
+      },
+      "openrouter": {
+        "enabled": true
+      },
+      "novita": {
+        "enabled": true
+      },
+      "fireworks": {
+        "enabled": true
+      },
+      "deepinfra": {
+        "enabled": true
+      }
+    }
+  },
+  "approvals": {
+    "plugin": {
+      "enabled": true,
+      "mode": "session"
+    },
+    "exec": {
+      "enabled": true,
+      "mode": "session"
+    }
+  },
+  "logging": {
+    "redactSensitive": "tools",
+    "redactPatterns": [
+      "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+      "\\b[A-Z][AEIOUX][A-Z]{2}\\d{6}[HM][A-Z]{5}[A-Z0-9]\\d\\b",
+      "\\b[A-Z\u00d1&]{3,4}\\d{6}[A-Z0-9]{3}\\b",
+      "\\b(?:\\d[ -]?){12,18}\\d\\b",
+      "\\bssh-(?:ed25519|rsa|dss|ecdsa)\\s+[A-Za-z0-9+/_=-]{20,}",
+      "\\bMRN-?\\d{6,}\\b",
+      "\\b(?:password|passcode|passwd|pwd)\\s*(?:[:=]|is|was)\\s*\\S+"
+    ]
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.6.1",
+    "lastTouchedAt": "2026-06-10T12:24:22.896Z"
+  },
+  "skills": {
+    "entries": {
+      "apple-notes": {
+        "enabled": false
+      },
+      "apple-reminders": {
+        "enabled": false
+      },
+      "bear-notes": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "clawhub": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": false
+      },
+      "discord": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "enterprise-calendar": {
+        "enabled": true
+      },
+      "enterprise-contacts": {
+        "enabled": true
+      },
+      "enterprise-crm": {
+        "enabled": true
+      },
+      "enterprise-database": {
+        "enabled": true
+      },
+      "enterprise-docdb": {
+        "enabled": true
+      },
+      "enterprise-email": {
+        "enabled": true
+      },
+      "enterprise-gitlab": {
+        "enabled": true
+      },
+      "enterprise-hr": {
+        "enabled": true
+      },
+      "enterprise-inference": {
+        "enabled": true
+      },
+      "enterprise-inventory": {
+        "enabled": true
+      },
+      "enterprise-invoicing": {
+        "enabled": true
+      },
+      "enterprise-manufacturing": {
+        "enabled": true
+      },
+      "enterprise-marketing": {
+        "enabled": true
+      },
+      "enterprise-pos": {
+        "enabled": true
+      },
+      "enterprise-project": {
+        "enabled": true
+      },
+      "enterprise-purchase": {
+        "enabled": true
+      },
+      "enterprise-rag": {
+        "enabled": true
+      },
+      "enterprise-sales": {
+        "enabled": true
+      },
+      "enterprise-vault": {
+        "enabled": true
+      },
+      "enterprise-website": {
+        "enabled": true
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "imsg": {
+        "enabled": false
+      },
+      "mcporter": {
+        "enabled": false
+      },
+      "model-usage": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "oracle": {
+        "enabled": true
+      },
+      "peekaboo": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "slack": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": false
+      },
+      "things-mac": {
+        "enabled": false
+      },
+      "tmux": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "voice-call": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      },
+      "local-vault": {
+        "enabled": true
+      },
+      "browser-automation": {
+        "enabled": true
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-06-06T22:42:33.155Z",
+    "lastRunVersion": "2026.6.1",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "commands": {
+    "bash": true
+  },
+  "browser": {
+    "noSandbox": true
+  }
+}
